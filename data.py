@@ -47,10 +47,16 @@ class Data(object):
 					y.append(summary, self.max_summary_length)
 		return X, y
 
-	def get_embedding_dict(self, embedding_size):
-		token_to_index, index_to_token = self.vocabulary.get_vocabulary(
-															self.vocabulary_size)
-		token
+	def get_embedding_dict(self, base_embedding_dir, embedding_size):
+		embeddings_index = {}
+		f = open("base_embedding_dir/glove.6B." + str(embedding_size) + "d.txt", encoding='utf-8')
+		for line in f:
+		    values = line.split()
+		    word = values[0]
+		    coefs = np.asarray(values[1:], dtype='float32')
+		    embeddings_index[word] = coefs
+		f.close()
+		return embeddings_index
 
 	def get_contextual_embedding():
 		pass
